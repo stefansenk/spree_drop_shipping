@@ -1,8 +1,8 @@
-<h1><%= t '.new_supplier' %></h1>
+<h1><%= t 'New drop ship order' %></h1>
 
-<%= render 'spree/shared/error_messages', :target => @supplier %>
+<%= render 'spree/shared/error_messages', :target => @drop_ship_order %>
 
-<%= form_for([:admin, @supplier]) do |f| %>
+<%= form_for([:admin, @order, @drop_ship_order]) do |f| %>
   <%= render "form", :form => f %>
   <p class="form-buttons">
     <%= button t('create') %> <%= t('or') %> <%= link_to t('cancel'), collection_url %>

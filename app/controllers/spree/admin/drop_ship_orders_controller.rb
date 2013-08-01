@@ -1,5 +1,23 @@
 class Spree::Admin::DropShipOrdersController < Spree::Admin::ResourceController
 
+  before_filter :load_order, :only =>[:new, :create]
+
+  def create
+    @drop_ship_order = @order.drop_ship_orders.build(params[:drop_ship_order])
+    @drop_ship_order.sent_at = Time.now
+    @drop_ship_order.confirmed_at = Time.now
+    @drop_ship_order.state = "confirmed"
+
+    if @drop_ship_order.save
+      flash[:success] = flash_message_for(@drop_ship_order, :successfully_created)
+      respond_with(@drop_ship_order) do |format|
+        format.html { redirect_to admin_order_drop_ship_orders_path(@order) }
+      end
+    else
+      respond_with(@drop_ship_order) { |format| format.html { render :action => 'new' } }
+    end
+  end
+
   def show
     @dso = load_resource
     @supplier = @dso.supplier
@@ -30,6 +48,10 @@ class Spree::Admin::DropShipOrdersController < Spree::Admin::ResourceController
       end
       @search = scope.includes(:supplier).search(params[:q])
       @collection = @search.result.page(params[:page]).per(Spree::Config[:orders_per_page])
+    end
+
+    def load_order
+      @order = Spree::Order.find_by_number(params[:order_id])
     end
 
 end

@@ -1,0 +1,8 @@
+<%= form.field_container :supplier_id do %>
+  <%= form.label :supplier_id, 'Supplier' %><br />
+  <%= form.select :supplier_id, Spree::Supplier.all.collect{|s| [s.name, s.id]}, {:include_blank => true}, :class => 'select2' %>
+<% end %>
+<%= form.field_container :confirmation_number do %>
+  <%= form.label :confirmation_number, 'Confirmation Number' %><br />
+  <%= form.text_field :confirmation_number %>
+<% end %>
