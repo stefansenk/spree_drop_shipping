@@ -16,6 +16,8 @@ Spree::Core::Engine.routes.prepend do
     resources :drop_ship_orders do
       member do
         get :deliver
+        get :disp
+        put :disp
       end
     end
   end

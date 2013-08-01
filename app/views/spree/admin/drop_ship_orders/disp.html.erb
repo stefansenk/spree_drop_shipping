@@ -1,0 +1,16 @@
+<h1><%= t 'Dispatch drop ship order' %></h1>
+
+<%= render 'spree/shared/error_messages', :target => @drop_ship_order %>
+
+<%= form_for([:admin, @drop_ship_order], :url => disp_admin_drop_ship_order_path(@drop_ship_order)) do |form| %>
+
+  <%= form.field_container :shipment_tracking_number do %>
+    <%= label_tag :shipment_tracking_number, 'Shipment Tracking Number' %><br />
+    <%= text_field_tag :shipment_tracking_number %>
+  <% end %>
+
+  <p class="form-buttons">
+    <%= button t('dispatch') %> <%= t('or') %> <%= link_to t('cancel'), collection_url %>
+  </p>
+<% end %>
+

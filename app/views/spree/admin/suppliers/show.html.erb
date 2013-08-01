@@ -22,7 +22,7 @@
   <dt>Order Count</dt>
     <dd><%= link_to @supplier.orders.count, admin_supplier_orders_path(@supplier) %></dd>
   <dt>User ID</dt>
-    <dd><%= link_to @supplier.user.id, admin_user_path(@supplier.user) %></dd>
+    <dd><%= link_to @supplier.user.id, admin_user_path(@supplier.user) if @supplier.user %></dd>
     
 </dl>
 

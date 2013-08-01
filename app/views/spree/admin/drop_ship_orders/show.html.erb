@@ -12,6 +12,16 @@
   <% end %>
 </div>
 
+<div class="float-left">
+  <% if !@dso.sent? %>
+    <%= link_to "Dispatch Order", disp_admin_drop_ship_order_path(@dso), :class => 'button' %>
+  <% end %>
+  <dl>
+    <dt>Supplier Confirm Num</dt>
+    <dd><%= @dso.confirmation_number %></dd>
+  </dl>
+</div>
+
 <hr class="clear" />
 
 <div class="float-left">

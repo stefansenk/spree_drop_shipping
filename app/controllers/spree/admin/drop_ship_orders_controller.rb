@@ -18,6 +18,24 @@ class Spree::Admin::DropShipOrdersController < Spree::Admin::ResourceController
     end
   end
 
+  def disp
+    @drop_ship_order = Spree::DropShipOrder.find(params[:id])
+
+    if params[:drop_ship_order] or params[:shipment_tracking_number]
+      order = @drop_ship_order.order
+
+      order.shipments.ready.each do |shipment|
+        shipment.tracking = params[:shipment_tracking_number]
+        shipment.ship
+      end
+
+      @drop_ship_order.update_attribute(:shipped_at, Time.now)
+      @drop_ship_order.update_attribute(:state, "complete")
+
+      redirect_to admin_drop_ship_orders_path
+    end
+  end
+
   def show
     @dso = load_resource
     @supplier = @dso.supplier
